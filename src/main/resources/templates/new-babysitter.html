@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <script>
+function validateForm() {
+  var x = document.forms["babysitterform"]["startTime"].value;
+  var y = document.forms["babysitterform"]["bedTime"].value;
+  var z = document.forms["babysitterform"]["endTime"].value;
+  
+  
+  
+  if (parseInt(x) >= parseInt(y)) {
+    alert("Start time cannot be greater than or equal to Bed Time");
+    return false;
+  }
+  
+  if (parseInt(x) > parseInt(y)) {
+	    alert("Start time cannot be greater than End Time");
+	    return false;
+	  }
+  
+  if (parseInt(y) > parseInt(z)) {
+	    alert("Bed time cannot be greater than End Time");
+	    return false;
+	  }
+  
+  if (parseInt(z) < parseInt(y) || parseInt(z) < parseInt(x) ) {
+	    alert("End time cannot be less than Bed Time or Start Time");
+	    return false;
+	  }
+  
+  return true; 
+}
+</script>
+
+</head>
+
+<body>
+
+	<div class="container">
+		<form name="babysitterform" action="/babysitters/save" th:object="${babysitter}" method="POST" onsubmit="return validateForm()"> <!-- same as class -->
+		
+		<input type="text" placeholder="Babys Name" th:field="${babysitter.name}">
+		<p>Start Time</p>
+		<select th:field="${babysitter.startTime}" name="startTime">
+			<option th:value="5"> 5:00pm </option>
+			<option th:value="6"> 6:00pm</option>
+			<option th:value="7"> 7:00pm</option>
+			<option th:value="8"> 8:00pm</option>
+			<option th:value="8"> 9:00pm</option>
+			<option th:value="10"> 10:00pm</option>
+			<option th:value="11"> 11:00pm</option>
+		</select>
+		
+		<p>Bed Time</p>
+		<select th:field="${babysitter.bedTime}" name="bedTime" title="Bed Time">
+			<option th:value="5"> 5:00pm </option>
+			<option th:value="6"> 6:00pm</option>
+			<option th:value="7"> 7:00pm</option>
+			<option th:value="8"> 8:00pm</option>
+			<option th:value="8"> 9:00pm</option>
+			<option th:value="10"> 10:00pm</option>
+			<option th:value="11"> 11:00pm</option>
+		</select>
+		
+		<p>End Time</p>
+		<select th:field="${babysitter.endTime}" name="endTime">
+			<option th:value="6"> 6:00pm</option>
+			<option th:value="7"> 7:00pm</option>
+			<option th:value="8"> 8:00pm</option>
+			<option th:value="8"> 9:00pm</option>
+			<option th:value="10"> 10:00pm </option>
+			<option th:value="11"> 11:00pm </option>
+			<option th:value="12"> 12:00am </option>
+			<option th:value="13"> 1:00am </option>
+			<option th:value="14"> 2:00am </option>
+			<option th:value="15"> 3:00am </option>
+			<option th:value="16"> 4:00am </option>
+		</select>
+		
+		
+		
+		<button type="submit">Submit Hours</button>
+		
+		</form>
+	</div>
+	
+</body>
+
+</html>
